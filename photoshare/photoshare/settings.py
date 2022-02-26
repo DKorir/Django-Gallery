@@ -78,8 +78,10 @@ WSGI_APPLICATION = 'photoshare.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'djangogallery',
+        'USER':'moringa',
+        'PASSWORD':'0723120546',
     }
 }
 
