@@ -10,8 +10,17 @@
                     <form method='POST' action="" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group m-3">
-                            <label">Location</label>
-                            <input required type="text" name="location" placeholder="Enter a location" class="form-control">
+                            <label">Select a location...</label>
+                            <select name="location" class="form-control">
+                              <option value="none">select a location</option>  
+                              {% for location in locations %}
+                              <option value="{{location.id}}">{{ location.name }}</option> 
+                              {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group m-3">
+                            <label">Create a new location</label>
+                            <input type="text" name="location_new" placeholder="Create a new location" class="form-control">
                         </div>
                         <div class="form-group m-3">
                             <label">Description</label>

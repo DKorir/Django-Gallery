@@ -1,16 +1,14 @@
 from django.shortcuts import render,redirect
-from .models import Category, Photo
+from .models import Category, Location, Photo
 
 # Create your views here.
 def gallery(request):
     category = request.GET.get('category')
-    if category == None:
-        photos = Photo.objects.all()
-    else:
-        photos = Photo.objects.filter(category__name=category)
-    categories = Category.objects.all()
-    context = {'categories':categories}
-    context = { 'categories': categories, 'photos': photos }
+    location = request.GET.get('location')
+    photos = Photo.objects.all()    
+    category = Category.objects.all()
+    location = Location.objects.all()
+    context = { 'category': category, 'location':location, 'photos': photos }
     return render(request,'photos/gallery.html', context)
 
 def viewPhoto(request,pk):
@@ -19,6 +17,7 @@ def viewPhoto(request,pk):
 
 def addPhoto(request):
     categories = Category.objects.all()
+    locations = Location.objects.all()
     if request.method == 'POST':
         data = request.POST
         image = request.FILES.get('image')
@@ -28,11 +27,19 @@ def addPhoto(request):
             category, created = Category.object.get_or_create(name=data['category_new'])
         else:
                 category = None
+        if data['location'] != 'none':
+            location = Location.objects.get(id=data['location'])
+        elif data['location_new'] != '':
+            location, created = Location.object.get_or_create(name=data['location_new'])
+        else:
+                location = None
         photo = Photo.objects.create(
                 category = category,
+                location = location,
                 description = data['description'],
                 image = image,
             )
         return redirect('gallery')
-    context = { 'categories': categories}
+    
+    context = { 'categories': categories,'locations': locations}
     return render(request,'photos/add.html', context)

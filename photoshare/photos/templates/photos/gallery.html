@@ -4,7 +4,7 @@
  <head>
 <style>
     .image-thumbnail{
-        height:200px;
+        height:300px;
         object-fit: cover;
     }
 </style>
@@ -39,8 +39,9 @@
                             <img class="image-thumbnail" src=" {{photo.image.url}} " alt="...">
                             <div class="card-body">
                                 <small>Category: {{photo.category.name}}</small>
+                            </div>
+                            <div class="card-header">
                                 <small>Location: {{photo.location.name}}</small>
-    
                             </div>
                             <a href=" {% url 'photo' photo.id %} " class="btn btn-outline-dark btn-sm m-1">View</a>
                         </div>
