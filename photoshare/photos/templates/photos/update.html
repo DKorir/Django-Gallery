@@ -1,0 +1,42 @@
+{%extends 'photos/base.html'%}
+{% block content %} 
+
+<body class="m-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <a href=" {% url 'gallery' %} " class="btn btn-dark my-3">Go Back</a>
+                <div class="card">
+                    <form method='POST' action="" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group m-3">
+                            <label">Location</label>
+                            <input required type="text" name="location" value=" {{photo.location}} " placeholder="Enter a location" class="form-control">
+                        </div>
+                        <div class="form-group m-3">
+                            <label">Update location</label>
+                            <input type="text" name="location_new" placeholder="Create a new location" class="form-control">
+                        </div>
+                        <div class="form-group m-3">
+                            <label">Description</label>
+                            <input required type="text" name="description" value=" {{photo.description}} " placeholder="Enter a description" class="form-control">
+                        </div>
+                        <div class="form-group m-3">
+                            <label">Category</label>
+                            <input required type="text" name="description" value=" {{photo.category}} " placeholder="Enter a description" class="form-control">
+                        </div>
+                        
+
+                        <div class="form-group m-3">
+                          <label">Upload new image</label>
+                          <input required type="file" name="image" class="form-control-file">
+                        </div>
+                        <button type="submit" class="btn btn-warning m-3">update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+{% endblock %}

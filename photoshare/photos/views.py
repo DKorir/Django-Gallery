@@ -1,14 +1,19 @@
+from unicodedata import category
 from django.shortcuts import render,redirect
-from .models import Category, Location, Photo
 
+from .models import Category, Location, Photo
+import os
 # Create your views here.
 def gallery(request):
     category = request.GET.get('category')
     location = request.GET.get('location')
-    photos = Photo.objects.all()    
-    category = Category.objects.all()
+    if category==None:
+        photos = Photo.objects.all()    
+    else:
+        photos = Photo.objects.filter(category__name=category)  
+    categories = Category.objects.all()
     location = Location.objects.all()
-    context = { 'category': category, 'location':location, 'photos': photos }
+    context = { 'categories': categories, 'location':location, 'photos': photos }
     return render(request,'photos/gallery.html', context)
 
 def viewPhoto(request,pk):
@@ -43,3 +48,38 @@ def addPhoto(request):
     
     context = { 'categories': categories,'locations': locations}
     return render(request,'photos/add.html', context)
+
+
+
+        
+    context={'photo': photo}
+
+    return render(request,'photos/update.html', context)
+
+
+def search_results(request):
+
+    if 'photo' in request.GET and request.GET["photo"]:
+        search_term = request.GET.get("photo")
+        searched_photos= Photo.search_by_category(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'photos/search.html',{"message":message,"photos": searched_photos})
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'photos/search.html',{"message":message})
+
+# def search_results(request):
+
+#     if 'article' in request.GET and request.GET["photo"]:
+#         search_term = request.GET.get("photo")
+#         searched_photo = Photo.search_by_category(search_term)
+#         message = f"{search_term}"
+
+#         return render(request, 'photos/search.html',{"message":message,"photos": searched_photo})
+
+#     else:
+#         message = "You haven't searched for any term"
+#         return render(request, 'photos/search.html',{"message":message})
+

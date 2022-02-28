@@ -10,6 +10,10 @@
                     <img style="max-width: 100%; max-height: 100%;" src=" {{ photo.image.url }} "  alt="">
                     <p>{{photo.description}}</p>
                     <p>Location: {{photo.location.name}}</p>
+                    <div>
+                       <a href=" {% url 'update' photo.id %} "><button class="btn btn-success">Update</button></a>
+                       <a href=" {% url 'delete' photo.id %} "><button class="btn btn-danger">Delete</button></a>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,0 +1,11 @@
+{%extends 'photos/base.html'%}
+
+ {% block content %}
+
+ <form method="POST" action="{% url 'gallery' photo.id %}">
+     {% csrf_token%}
+      <a href=" {% url 'gallery' %}">Cancel</a>
+      <input type="submit" name="confirm">
+ </form>
+
+ {% endblock %}
