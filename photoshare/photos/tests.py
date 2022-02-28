@@ -1,4 +1,5 @@
 from re import L
+from unicodedata import category
 from django.test import TestCase
 
 # Create your tests here.
@@ -30,3 +31,12 @@ class CategoryTestClass(TestCase):
         self.technology.save_category()
         category = Category.objects.all()
         self.assertTrue(len(category) > 0)
+
+
+class PhotoTestClass(TestCase):
+
+    # Set up method
+    def setUp(self):
+        self.photo= Photo(image ='Muriuki', description ='kenya is lovely country')
+    def test_instance(self):
+        self.assertTrue(isinstance(self.photo,Photo))
