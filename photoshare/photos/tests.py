@@ -15,6 +15,10 @@ class LocationTestClass(TestCase):
         self.kisumu.save_location()
         locations = Location.objects.all()
         self.assertTrue(len(locations) > 0)
+    def test_update_method(self):
+        self.kisumu.update_location('name')
+        locations = Location.objects.all()
+        self.assertTrue(len(locations) > 0)
     def tearDown(self):
         Location.objects.all().delete()
         Category.objects.all().delete()
@@ -27,6 +31,10 @@ class CategoryTestClass(TestCase):
         self.technology= Category(name = 'kisumu',)
     def test_instance(self):
         self.assertTrue(isinstance(self.technology,Category))
+    def test_update_method(self):
+        self.technology.update_category('name')
+        categories = Category.objects.all()
+        self.assertTrue(len(categories) > 0)
     def test_save_method(self):
         self.technology.save_category()
         category = Category.objects.all()
@@ -40,3 +48,8 @@ class PhotoTestClass(TestCase):
         self.photo= Photo(image ='Muriuki', description ='kenya is lovely country')
     def test_instance(self):
         self.assertTrue(isinstance(self.photo,Photo))
+    
+    def test_save_method(self):
+        self.photo.save_image()
+        photo = Photo.objects.all()
+        self.assertTrue(len(photo) > 0)
